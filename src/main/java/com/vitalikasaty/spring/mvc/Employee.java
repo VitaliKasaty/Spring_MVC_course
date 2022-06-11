@@ -11,6 +11,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.vitalikasaty.spring.mvc.validation.CheckEmail;
+
 public class Employee {
 	@Size(min = 2, message = "name must be min 2 symbols")
 	private String name;
@@ -28,6 +30,12 @@ public class Employee {
 	private Map<String, String> languageList;
 	@Pattern(regexp = "\\d{3}-\\d{2}-\\d{2}", message = "please use pattern XXX-XX-XX")
 	private String phoneNumber;
+	
+	//@CheckEmail
+	//Если в собственно созданной аннотации не указать параметры, то они будут использоваться
+	//дефолтные, как при определениии аннотации
+	@CheckEmail(value = "abc.com", message = "email must ends with abc.com")
+	private String email;
 
 	public Employee() {
 		departments = new HashMap<>();
@@ -126,12 +134,18 @@ public class Employee {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [name=" + name + ", surname=" + surname + ", salary=" + salary + ", department=" + department
 				+ "]";
 	}
-	
-	
 
 }
